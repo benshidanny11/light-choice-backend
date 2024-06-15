@@ -1,0 +1,30 @@
+{
+  "name": "light-choice-backend",
+  "version": "1.0.0",
+  "description": "A project for medical services",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benshidanny11/light-choice-backend.git"
+  },
+  "author": "Urimubenshi Daniel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benshidanny11/light-choice-backend/issues"
+  },
+  "homepage": "https://github.com/benshidanny11/light-choice-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@babel/register": "^7.24.6",
+    "regenerator-runtime": "^0.14.1"
+  }
+}
