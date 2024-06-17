@@ -1,10 +1,17 @@
-import bodyParser from "body-parser";
-import express from "express";
-import { corsConfig, serverConfig, cloudConfigure } from './config';
+import 'regenerator-runtime';
+import logger from 'morgan';
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import api from './routers';
+import credentials from './middleware/Credentials';``
+import { corsConfig, serverConfig } from './config';
+import db from './db/models/index';
 
+dotenv.config();
+const { sequelize: dbCon } = db;
 const app = express();
 const { port } = serverConfig;
-
 app
   .use(express.json())
   .use(express.json({ limit: '25mb' }))
@@ -13,9 +20,20 @@ app
   .use(credentials)
   .use(cors(corsConfig))
   .use(logger('dev'))
-  .use(cookieParser())
-  //.use('/', api)
- 
-app.use((err, req, res, next) => {
-    res.status(err.status || 500).json({ error: err.message });
-});
+  .use('/', api)
+  .set('port', port);
+
+dbCon
+  .sync()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(
+        `Database succesfully connected ✅\nPID: ${process.pid} Server listening on port: ${port} in ${process.env.NODE_ENV} mode 😊`
+      );
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+export default app;

@@ -4,7 +4,13 @@
   "description": "A project for medical services",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec babel-node src/app.js",
+    "db:migrate": "npx sequelize db:migrate",
+    "db:migrate:reset": "npx sequelize db:migrate:undo:all",
+    "build": "babel src --out-dir dist",
+    "start": "npm run build && node dist/app.js",
+    "db:seeds": "sequelize db:seed:all",
+    "db:undo:appointment": "sequelize db:migrate:undo --name 20220428210637-create-appointment.js"
   },
   "repository": {
     "type": "git",
@@ -18,13 +24,23 @@
   "homepage": "https://github.com/benshidanny11/light-choice-backend#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "morgan": "^1.10.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4"
   },
   "devDependencies": {
-    "@babel/register": "^7.24.6",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/register": "^7.17.7",
+    "@babel/runtime": "^7.17.9",
+    "nodemon": "^3.1.3",
     "regenerator-runtime": "^0.14.1"
   }
 }
