@@ -15,6 +15,7 @@ import {
     User
 } from '../db/models';
 import { serverConfig } from '../config';
+import { STATUSES } from '../constants/ResponseStatuses';
 
 const { httpOnlyCookieOptions: cookieOptions } = serverConfig;
 dotenv.config();
@@ -34,18 +35,15 @@ const UserController = {
         let newUser = await User.create(userObject);
         newUser = newUser?.dataValues;
         if (!newUser) return res.sendStatus(500);
-        res.status(201).send(getSuccessMessage('User signed up successfully!'));
+        res.status(STATUSES.CREATED).send(getSuccessMessage('User signed up successfully!'));
     },
     login: async (req, res) => {
         const {
           user: { uid, email, role },
         } = req;
         const userData = { uid, email, role };
-        const access_token = await generateAccessToken(userData);
-        if (!result.includes(1)) {
-          return res.sendStatus(500);
-        }
-        res.json({ access_token, userData });
+        const accesstoken = await generateAccessToken(userData);
+        res.json({ accesstoken, userData });
       }
 };
 
