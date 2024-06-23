@@ -1,8 +1,10 @@
 import 'regenerator-runtime';
 import express from 'express';
+import User from './_user';
 
 const api = express();
 
+api.use('/auth', User);
 api.get('/', (req, res) => {
   res.status(200).send({
     status: 200,
@@ -17,3 +19,4 @@ api.use('/', (req, res) => {
 });
 
 export default api;
+
