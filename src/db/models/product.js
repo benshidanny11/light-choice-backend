@@ -14,12 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Product.init({
-    pid: DataTypes.STRING,
+    pid: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
     pname: DataTypes.STRING,
     pmark: DataTypes.STRING,
     pdesc: DataTypes.STRING,
-    ptags: DataTypes.STRING,
-    pimgage: DataTypes.ARRAY(DataTypes.STRING),
+    ptags:DataTypes.ARRAY(DataTypes.STRING) ,
+    pimgage: DataTypes.STRING ,
     pprice: DataTypes.DOUBLE,
     uid: DataTypes.STRING
   }, {
