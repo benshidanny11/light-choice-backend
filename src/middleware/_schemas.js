@@ -62,9 +62,44 @@ const producttags = Joi.array()
   .label('Product image is required, it should be a link');
 
   const productprice = Joi.number()
-  .min(3)
   .required()
   .label('Product prise is require');
+  
+
+  const orderamount = Joi.number()
+  .required()
+  .label('Order amount is require');
+
+
+  const prescription = Joi.string()
+  .min(3)
+  .required()
+  .label('Order prescription is require');
+
+  const orderby = Joi.string()
+  .min(3)
+  .required()
+  .label('Order user id is require');
+
+  const orderaddress = Joi.string()
+  .min(3)
+  .required()
+  .label('Order address is require');
+
+  const orderquantity = Joi.number()
+  .required()
+  .label('Order quantity is require');
+
+
+  const productid = Joi.string()
+  .min(3)
+  .required()
+  .label('Order product id is require');
+
+
+  schemas.orderstatus = Joi.string()
+  .required()
+  .label('Order status is require, should be APPROVE or REJECT');
 
 schemas.login = Joi.object().keys({
   username,
@@ -100,6 +135,15 @@ schemas.product = Joi.object().keys({
  productdesc,
  productprice,
  producttags
+});
+
+schemas.order = Joi.object().keys({
+  productid,
+  prescription,
+  orderby,
+  orderaddress,
+  orderquantity,
+  orderamount
 });
 
 

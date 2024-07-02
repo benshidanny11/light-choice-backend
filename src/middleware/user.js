@@ -21,7 +21,7 @@ export default {
   },
   checkIsPatient: async (req, res, next) => {
     const { authUser } = req;
-    if (authUser?.u_role === 'PATIENT') {
+    if (authUser?.role === 'PATIENT') {
       next();
     } else {
       res.status(STATUSES.UNAUTHORIZED).send(getErrorMessage(MESSAGES.UNAUTHORIZED));
