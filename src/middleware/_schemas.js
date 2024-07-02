@@ -33,81 +33,73 @@ const phone = Joi.string()
   .max(12)
   .required()
   .label('Phone is required,  it must have at least 10 digits');
-const address = Joi.string()
-  .min(3)
-  .required()
-  .label('Addrss is required,  it must have at least 3 letters');
-const website = Joi.string()
-  .min(5)
-  .label('Website is required,  it must have at least 5 letters');
 
-const speciality = Joi.string()
-  .min(3)
-  .required()
-  .label('Speciality is required,  it must have at least 3 letters');
 
-const clinic = Joi.string()
-  .min(3)
-  .required()
-  .label('Clinic is required,  it must have at least 3 letters');
 
-const image = Joi.string().min(5).label('Image is required,  it must be a url');
-const properties = Joi.string()
+const producttags = Joi.array()
   .required()
-  .min(3)
-  .label('Medicine properties are required, must be atleast 3 letters');
+  .label('Product tags is required, should be an array of strings');
 
-const description = Joi.string()
-  .required()
-  .min(3)
-  .label('Medicine decription is required, must be atleast 10 letters');
 
-const price = Joi.number()
-  .min(1)
+  const productname = Joi.string()
+  .min(3)
   .required()
-  .label('Medicine price is required');
+  .label('Product name is required');
 
-const country = Joi.string().min(3).required().label('Country is required');
-const town = Joi.string().min(3).required().label('Town is required');
-const street = Joi.string()
+  const productmark = Joi.string()
   .min(3)
   .required()
-  .label('Street number is required');
-const nid = Joi.string().min(16);
-const mid = Joi.string().min(3).required().label('Medicine id is required');
-// const phid = Joi.string().min(3).required().label('Pharmacy id is required');
-const patid = Joi.string().min(3).required().label('Patient id is required');
-const prescription = Joi.string().min(3).label('Prescription is required');
-const role = Joi.string().min(3).required().label('Role is required');
-const uid = Joi.string().min(3).required().label('User id is required');
-const docid = Joi.string().min(3).required().label('Doctor id is required');
-const deasese = Joi.string().min(3).required().label('Disease id is required');
-const content = Joi.string().min(10).required().label('Health tip content is required, atleast 10 characters');
-const district = Joi.string().min(5).required().label('District is required');
-const title = Joi.string()
-  .min(3)
-  .required()
-  .label('Health tip title is required');
-const category = Joi.string()
-  .min(3)
-  .required()
-  .label('Category is required');
-const discount = Joi.number()
-  .min(3);
+  .label('Protuct mark name is required');
 
-const shortdescription = Joi.string()
-  .min(3)
-  .label('Short  description is required');
-
-const refcode = Joi.string()
+  
+  const productdesc = Joi.string()
   .min(3)
   .required()
-  .label('Order reference code is required');
+  .label('Product description is required');
 
-const tags = Joi.array()
+  const productimage = Joi.string()
+  .required()
+  .label('Product image is required, it should be a link');
+
+  const productprice = Joi.number()
+  .required()
+  .label('Product prise is require');
+  
+
+  const orderamount = Joi.number()
+  .required()
+  .label('Order amount is require');
+
+
+  const prescription = Joi.string()
   .min(3)
   .required()
-  .label('Order reference code is required');
+  .label('Order prescription is require');
+
+  const orderby = Joi.string()
+  .min(3)
+  .required()
+  .label('Order user id is require');
+
+  const orderaddress = Joi.string()
+  .min(3)
+  .required()
+  .label('Order address is require');
+
+  const orderquantity = Joi.number()
+  .required()
+  .label('Order quantity is require');
+
+
+  const productid = Joi.string()
+  .min(3)
+  .required()
+  .label('Order product id is require');
+
+
+  schemas.orderstatus = Joi.string()
+  .required()
+  .label('Order status is require, should be APPROVE or REJECT');
 
 schemas.login = Joi.object().keys({
   username,
@@ -120,17 +112,6 @@ schemas.createuser = Joi.object().keys({
   lastname:name,
   phone,
   password
-});
-
-schemas.signup = Joi.object().keys({
-  email,
-  role,
-  password,
-});
-
-schemas.updateuser = Joi.object().keys({
-  email,
-  role,
 });
 
 schemas.resetpass = Joi.object().keys({
@@ -147,66 +128,23 @@ schemas.resendemail = Joi.object().keys({
   email
 });
 
-schemas.pharmacy = Joi.object().keys({
-  name,
-  email,
-  phone,
-  address,
-  website,
-});
-
-schemas.doctor = Joi.object().keys({
-  name,
-  email,
-  phone,
-  speciality,
-  clinic,
-  image,
-});
-
-schemas.medicine = Joi.object().keys({
-  name,
-  properties,
-  description,
-  image,
-  price,
-  category,
-  discount,
-  shortdescription,
-  tags,
-});
-
-schemas.patient = Joi.object().keys({
-  name,
-  email,
-  phone,
-  address,
-  country,
-  town,
-  street,
-  nid,
-  district
+schemas.product = Joi.object().keys({
+ productname,
+ productmark,
+ productimage,
+ productdesc,
+ productprice,
+ producttags
 });
 
 schemas.order = Joi.object().keys({
-  mid,
+  productid,
   prescription,
-  patid,
-  refcode
+  orderby,
+  orderaddress,
+  orderquantity,
+  orderamount
 });
 
-schemas.appointment = Joi.object().keys({
-  patid,
-  docid,
-  deasese,
-});
-
-schemas.tips = Joi.object().keys({
-  uid,
-  category,
-  title,
-  content,
-  image: Joi.string().required().min(5).label('Health tip image is required,  it must be a url')
-});
 
 export default schemas;

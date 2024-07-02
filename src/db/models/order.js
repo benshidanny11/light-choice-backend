@@ -14,16 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Order.init({
-    oid: DataTypes.STRING,
+    oid: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
     oprescription: DataTypes.STRING,
     ostatus: DataTypes.STRING,
     oaddress: DataTypes.STRING,
     opaymentref: DataTypes.STRING,
-    oadrress: DataTypes.STRING,
     oamount: DataTypes.DOUBLE,
     orderedby: DataTypes.STRING,
     approvedby: DataTypes.STRING,
-    orderpaid: DataTypes.STRING
+    orderpaid: DataTypes.STRING,
+    productid:DataTypes.STRING,
+    oquantity:DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Order',

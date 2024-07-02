@@ -7,7 +7,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING
       },
       oprescription: {
         type: Sequelize.STRING
@@ -21,11 +20,14 @@ module.exports = {
       opaymentref: {
         type: Sequelize.STRING
       },
-      oadrress: {
-        type: Sequelize.STRING
-      },
       oamount: {
         type: Sequelize.DOUBLE
+      },
+      productid: {
+        type: Sequelize.STRING
+      },
+      oquantity: {
+        type: Sequelize.STRING
       },
       orderedby: {
         type: Sequelize.STRING

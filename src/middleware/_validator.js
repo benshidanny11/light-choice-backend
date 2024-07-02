@@ -18,6 +18,7 @@ export default (schema) => (req, res, next) => {
     } else {
       const allErrors = [];
       validationResult.error.details.forEach((errors) => {
+        console.log(errors)
         const findError = allErrors.filter((error) => error === errors.context.label);
         if (findError.length === 0) {
           allErrors.push(errors.context.label);

@@ -2,6 +2,7 @@
 import 'regenerator-runtime';
 import {
     generateAccessToken,
+    decodeJWT
   } from './_auth.helper';
 import { generatePassword } from './_password.helper';
 import { getErrorMessage } from './_errorHandler.helper';
@@ -11,5 +12,6 @@ export {
   generatePassword,
   getErrorMessage, 
   getSuccessMessage,
-  generateAccessToken
+  generateAccessToken,
+  decodeJWT
 };
