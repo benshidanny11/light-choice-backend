@@ -2,7 +2,6 @@ import 'regenerator-runtime';
 import express from 'express';
 import Validator from '../middleware/_validator';
 import OrderController from '../controllers/OrderController';
-import DataExistsChecks from '../middleware/CheckDataExists';
 import Auth from '../middleware/Auth';
 import User from '../middleware/user';
 import Paginate from '../middleware/Paginate';

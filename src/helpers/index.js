@@ -7,11 +7,15 @@ import {
 import { generatePassword } from './_password.helper';
 import { getErrorMessage } from './_errorHandler.helper';
 import { getSuccessMessage } from './_successHandler.helper';
+import { getPaymentAccessToken } from './_paymentAccessToken';
+import { sendSms } from './_sendSMS';
 
 export {
   generatePassword,
   getErrorMessage, 
   getSuccessMessage,
   generateAccessToken,
-  decodeJWT
+  decodeJWT,
+  getPaymentAccessToken,
+  sendSms
 };

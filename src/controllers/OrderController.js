@@ -2,19 +2,20 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 import 'regenerator-runtime';
-import moment from 'moment';
+import workerfarm from 'worker-farm';
 import { v4 as uuid } from 'uuid';
 import dotev from 'dotenv';
 //import { sendOrderRequestEmail, sendOrderSucccesToPatientEmail } from '../services';
 import { User, Order } from '../db/models';
 // import { productList } from '../helpers/_products.helper';
-// import { sendSms } from '../helpers/_sendSMS';
+import { sendSms } from '../helpers';
 import { getErrorMessage, getSuccessMessage } from '../helpers';
 import { STATUSES } from '../constants/ResponseStatuses';
+import { sendSMSWorker } from '../workers';
 
 dotev.config();
 
-const { LIGHTCHOICE_EMAIL } = process.env;
+const { LIGHTCHOICE_EMAIL, RIGHT_CHOICE_PHONE_SMS_TO } = process.env;
 
 const OrderController = {
   createNewOrder: async (req, res) => {
@@ -39,20 +40,12 @@ const OrderController = {
     if (!order) {
       return res.status(STATUSES.BAD_REQUEST).send(getErrorMessage('Could not create order!'));
     }
-    // sendOrderRequestEmail({
-    //   email: DOPHARMA_EMAIL,
-    //   orderid: order.o_id,
-    //   name: req.body.name,
-    //   phonenumber: req.body.address.split(',')[0],
-    // });
-    // const products = await productList(req.body.medicines);
-    // sendOrderSucccesToPatientEmail({
-    //   email: req.body.p_email, orderid: req.body.refcode, products, totalamount: req.body.totalamount
-    // });
-    // await sendSms({
-    //   sender: 'DotpharmaOrder',
-    //   body: `${req.body.name} with phone number ${req.body.address.split(',')[0]}, has ordered products. Chek`
-    // });
+
+    await sendSms({
+      to: RIGHT_CHOICE_PHONE_SMS_TO,
+      body: `${req.authUser.firstname} ${req.authUser.lastname} with phone number ${req.authUser.phonenumber}, has ordered product.`
+    });
+
     return res.status(STATUSES.CREATED).send(getSuccessMessage('Order submitted successfully'));
   },
   approveOrReject: async (req, res) => {
