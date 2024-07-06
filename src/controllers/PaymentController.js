@@ -2,12 +2,12 @@ import dotenv from 'dotenv';
 import randomstring from 'randomstring';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
-import { getErrorMessage, getPaymentAccessToken, getSuccessMessage } from '../helpers';
-import { PaymentTrasaction } from '../db/models';
+import { getErrorMessage, getPaymentAccessToken, getSuccessMessage, sendSms } from '../helpers';
+import { PaymentTrasaction, Order } from '../db/models';
 import { STATUSES } from '../constants/ResponseStatuses';
 
 dotenv.config();
-const { PAY_PACK_API_LINK } = process.env;
+const { PAY_PACK_API_LINK, RIGHT_CHOICE_PHONE_SMS_TO } = process.env;
 const PaymentController = {
 
   sendPayment: async (req, res) => {
@@ -52,6 +52,7 @@ const PaymentController = {
         if (!payment) {
           return res.status(STATUSES.BAD_REQUEST).send(getErrorMessage('Could not create payment tansaction!'));
         }
+      
         res.status(201).send(
           payment
         );
@@ -65,7 +66,7 @@ const PaymentController = {
     }
   },
   verifyPayment: async (req, res) => {
-    const { ref, transactionid } = req.body;
+    const { ref, transactionid, orderid } = req.body;
     // Get access token
     try {
       const accessToken = await getPaymentAccessToken();
@@ -82,6 +83,20 @@ const PaymentController = {
       if (response.data?.transactions) {
         if (response.data.transactions[0].data.status == 'successful') {
           await PaymentTrasaction.update({ paymentstatus: response.data.transactions[0].data.status }, { where: { payid: transactionid } });
+          const orderPayload= {
+            "opaymentref": ref,
+            "orderpaid": "YES",
+        }
+          await Order.update(orderPayload,  { where: { oid: orderid } })
+          await sendSms({
+            to: RIGHT_CHOICE_PHONE_SMS_TO,
+            body: `${req.authUser.firstname} ${req.authUser.lastname} with phone number ${req.authUser.phonenumber}, has fully paid product.`
+          });
+      
+          await sendSms({
+            to: req.authUser.phonenumber,
+            body: `Your order ${orderid} has been paid successfully. Someone will call you shortly for delivery`
+          });
           return res.send({...getSuccessMessage('Order paid successfully!'),paymentStatus: response.data.transactions[0].data.status });
         } else {
           return res.status(STATUSES.BAD_REQUEST).send({...getErrorMessage('Order not paid paid!'), paymentStatus: response.data.transactions[0].data.status });

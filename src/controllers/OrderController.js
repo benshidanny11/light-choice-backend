@@ -46,6 +46,11 @@ const OrderController = {
       body: `${req.authUser.firstname} ${req.authUser.lastname} with phone number ${req.authUser.phonenumber}, has ordered product.`
     });
 
+    await sendSms({
+      to: req.authUser.phonenumber,
+      body: `Your order has been submited successfully, please proceed with payment proceess.`
+    });
+
     return res.status(STATUSES.CREATED).send(getSuccessMessage('Order submitted successfully'));
   },
   approveOrReject: async (req, res) => {
