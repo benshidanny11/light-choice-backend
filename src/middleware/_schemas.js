@@ -30,7 +30,6 @@ const name = Joi.string()
   .label('Name is required,  it must have at least 3 letters');
 const phone = Joi.string()
   .min(10)
-  .max(12)
   .required()
   .label('Phone is required,  it must have at least 10 digits');
 
@@ -101,6 +100,14 @@ const producttags = Joi.array()
   .required()
   .label('Order status is require, should be APPROVE or REJECT');
 
+const paymentmode = Joi.string()
+  .required()
+  .label('Payment mode is require');
+
+const orderid = Joi.string()
+  .required()
+  .label('Order id is required');
+
 schemas.login = Joi.object().keys({
   username,
   password,
@@ -145,6 +152,10 @@ schemas.order = Joi.object().keys({
   orderquantity,
   orderamount
 });
+
+schemas.payment=Joi.object().keys({
+  number:phone, amount:orderamount, orderid,  paymentmode
+})
 
 
 export default schemas;
