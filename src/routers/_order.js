@@ -15,13 +15,6 @@ router.post(
   OrderController.createNewOrder
 );
 
-// router.delete(
-//   '/deleteorder/:o_id',
-//   Auth.verifyToken,
-//   User.checkISAdmin,
-//   OrderController.deleteOrder
-// );
-
 router.get(
   '/findall',
   Auth.verifyAccessToken,

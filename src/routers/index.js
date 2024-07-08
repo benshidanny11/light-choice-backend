@@ -4,6 +4,7 @@ import User from './_user';
 import Product from './_product';
 import Order from './_order';
 import Payment from './_payment';
+import Appeal from './_appeal'
 
 const api = express();
 
@@ -11,6 +12,7 @@ api.use('/auth', User);
 api.use('/product', Product);
 api.use('/order',Order)
 api.use('/payment', Payment);
+api.use('/appeal', Appeal);
 api.get('/', (req, res) => {
   res.status(200).send({
     status: 200,
