@@ -25,7 +25,7 @@ router.put(
 );
 router.get(
   '/getall',
-  Auth.verifyAccessToken,
+  // Auth.verifyAccessToken,
   Paginate,
   ProductController.findAll
 );

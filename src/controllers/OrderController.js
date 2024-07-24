@@ -83,7 +83,7 @@ const OrderController = {
     const orders = await Order.findAll({
       limit,
       offset,
-      where: {  },
+      where: { orderedby: req.authUser.uid },
     });
     return res.json(orders);
   },

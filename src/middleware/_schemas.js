@@ -1,5 +1,6 @@
 import 'regenerator-runtime';
 import Joi from '@hapi/joi';
+import { join } from 'lodash';
 
 const schemas = {};
 
@@ -14,10 +15,10 @@ const password = Joi.string()
   .required()
   .label('Password is required,  it must have at least 8 letters');
 
-const username=Joi.string()
-.min(3)
-.required()
-.label('Email or Phone number is required!');
+const username = Joi.string()
+  .min(3)
+  .required()
+  .label('Email or Phone number is required!');
 
 const confirm = Joi.string()
   .min(8)
@@ -40,63 +41,63 @@ const producttags = Joi.array()
   .label('Product tags is required, should be an array of strings');
 
 
-  const productname = Joi.string()
+const productname = Joi.string()
   .min(3)
   .required()
   .label('Product name is required');
 
-  const productmark = Joi.string()
+const productmark = Joi.string()
   .min(3)
   .required()
   .label('Protuct mark name is required');
 
-  
-  const productdesc = Joi.string()
+
+const productdesc = Joi.string()
   .min(3)
   .required()
   .label('Product description is required');
 
-  const productimage = Joi.string()
+const productimage = Joi.string()
   .required()
   .label('Product image is required, it should be a link');
 
-  const productprice = Joi.number()
+const productprice = Joi.number()
   .required()
   .label('Product prise is require');
-  
 
-  const orderamount = Joi.number()
+
+const orderamount = Joi.number()
   .required()
   .label('Order amount is require');
 
 
-  const prescription = Joi.string()
+const prescription = Joi.string()
   .min(3)
   .required()
   .label('Order prescription is require');
 
-  const orderby = Joi.string()
+const orderby = Joi.string()
   .min(3)
   .required()
   .label('Order user id is require');
 
-  const orderaddress = Joi.string()
+const orderaddress = Joi.string()
   .min(3)
   .required()
   .label('Order address is require');
 
-  const orderquantity = Joi.number()
+const orderquantity = Joi.number()
   .required()
   .label('Order quantity is require');
 
 
-  const productid = Joi.string()
+const productid = Joi.string()
   .min(3)
   .required()
   .label('Order product id is require');
 
 
-  schemas.orderstatus = Joi.string()
+schemas.orderstatus = Joi.string()
   .required()
   .label('Order status is require, should be APPROVE or REJECT');
 
@@ -108,6 +109,14 @@ const orderid = Joi.string()
   .required()
   .label('Order id is required');
 
+ const appealmsg=Joi.string()
+ .required()
+ .label('Appeal message is required');
+ 
+ const appealreason=Joi.string()
+ .required()
+ .label('Appeal reason is required');
+
 schemas.login = Joi.object().keys({
   username,
   password,
@@ -115,8 +124,8 @@ schemas.login = Joi.object().keys({
 
 schemas.createuser = Joi.object().keys({
   email,
-  firstname:name,
-  lastname:name,
+  firstname: name,
+  lastname: name,
   phone,
   password
 });
@@ -136,12 +145,12 @@ schemas.resendemail = Joi.object().keys({
 });
 
 schemas.product = Joi.object().keys({
- productname,
- productmark,
- productimage,
- productdesc,
- productprice,
- producttags
+  productname,
+  productmark,
+  productimage,
+  productdesc,
+  productprice,
+  producttags
 });
 
 schemas.order = Joi.object().keys({
@@ -153,9 +162,10 @@ schemas.order = Joi.object().keys({
   orderamount
 });
 
-schemas.payment=Joi.object().keys({
-  number:phone, amount:orderamount, orderid,  paymentmode
+schemas.payment = Joi.object().keys({
+  number: phone, amount: orderamount, orderid, paymentmode
 })
 
 
+schemas.appeal = Joi.object().keys({ orderid, appealmsg, appealreason })
 export default schemas;
