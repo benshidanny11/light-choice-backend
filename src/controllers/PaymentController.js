@@ -81,7 +81,8 @@ const PaymentController = {
         }
       );
       if (response.data?.transactions) {
-        if (response.data.transactions[0].data.status == 'successful') {
+        console.log(`Status ******* ${response.data.transactions[0].data.status}********`);
+        if (response.data.transactions[0].data.status === 'successful') {
           await PaymentTrasaction.update({ paymentstatus: response.data.transactions[0].data.status }, { where: { payid: transactionid } });
           const orderPayload= {
             "opaymentref": ref,
