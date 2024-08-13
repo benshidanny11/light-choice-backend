@@ -98,8 +98,11 @@ const PaymentController = {
             body: `Your order ${orderid} has been paid successfully. Someone will call you shortly for delivery`
           });
           return res.send({...getSuccessMessage('Order paid successfully!'),paymentStatus: response.data.transactions[0].data.status });
-        } else {
-          return res.status(STATUSES.BAD_REQUEST).send({...getErrorMessage('Order not paid paid!'), paymentStatus: response.data.transactions[0].data.status });
+        } else if(response.data.transactions[0].data.status == 'pending') {
+          return res.status(STATUSES.OK).send({...getErrorMessage('Order not yet paid!'), paymentStatus: response.data.transactions[0].data.status });
+        }else{
+          return res.status(STATUSES.OK).send({...getErrorMessage('Order payment has failed!'), paymentStatus: response.data.transactions[0].data.status });
+
         }
       }
     } catch (e) {
