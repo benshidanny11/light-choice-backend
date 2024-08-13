@@ -51,7 +51,7 @@ const OrderController = {
       body: `Your order has been submited successfully, please proceed with payment proceess.`
     });
 
-    return res.status(STATUSES.CREATED).send(getSuccessMessage('Order submitted successfully'));
+    return res.status(STATUSES.CREATED).send({...getSuccessMessage('Order submitted successfully'), orderid: order.oid});
   },
   approveOrReject: async (req, res) => {
     const payload = {
