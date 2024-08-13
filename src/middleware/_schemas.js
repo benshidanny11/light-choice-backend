@@ -71,7 +71,7 @@ const orderamount = Joi.number()
   .label('Order amount is require');
 
 
-const prescription = Joi.string().optional();
+const prescription = Joi.string();
 
 const orderby = Joi.string()
   .min(3)
