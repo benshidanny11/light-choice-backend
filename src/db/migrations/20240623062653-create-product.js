@@ -21,7 +21,7 @@ module.exports = {
       ptags: {
         type: Sequelize.ARRAY(Sequelize.STRING)
       },
-      pimgage: {
+      pimage: {
         type: Sequelize.STRING
       },
       pprice: {

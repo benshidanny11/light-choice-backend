@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     pmark: DataTypes.STRING,
     pdesc: DataTypes.STRING,
     ptags:DataTypes.ARRAY(DataTypes.STRING) ,
-    pimgage: DataTypes.STRING ,
+    pimage: DataTypes.STRING ,
     pprice: DataTypes.DOUBLE,
     uid: DataTypes.STRING
   }, {

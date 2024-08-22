@@ -15,7 +15,7 @@ const ProductController = {
       pmark: body.productmark,
       pdesc: body.productdesc,
       ptags: req.body.producttags || [],
-      pimgage: body.productimage,
+      pimage: body.productimage,
       pprice: body.productprice,
       uid: authUser.uid,
     };
@@ -32,7 +32,7 @@ const ProductController = {
         pmark: body.productmark,
         pdesc: body.productdesc,
         ptags: req.body.producttags || [],
-        pimgage: body.productimage,
+        pimage: body.productimage,
         pprice: body.productprice,
         uid: authUser.uid,
     };
