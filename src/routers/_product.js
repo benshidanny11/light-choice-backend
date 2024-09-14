@@ -43,4 +43,10 @@ router.get(
   ProductController.findById
 );
 
+router.get(
+  '/filterproduct',
+  // Auth.verifyAccessToken,
+  ProductController.filterProduct
+);
+
 export default router;
