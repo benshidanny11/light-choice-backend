@@ -79,17 +79,17 @@ const ProductController = {
         [Op.or]: [
           {
             pname: {
-              [Op.like]: `%${prodquery}%`, // 'searchString' is the substring you're looking for
+              [Op.iLike]: `%${prodquery}%`, // 'searchString' is the substring you're looking for
             },
           },
           {
             pdesc: {
-              [Op.like]: `%${prodquery}%`, // 'searchString' is the substring you're looking for
+              [Op.iLike]: `%${prodquery}%`, // 'searchString' is the substring you're looking for
             },
           },
           {
             pmark:{
-              [Op.like]: `%${prodquery}%`,
+              [Op.iLike]: `%${prodquery}%`,
             }
           },
           {
@@ -103,7 +103,7 @@ const ProductController = {
       logging: console.log,
     });
 
-    return res.status(STATUSES.OK).send(filteredProducts);
+    return res.status(STATUSES.OK).send({products: filteredProducts});
   }
 }
 
